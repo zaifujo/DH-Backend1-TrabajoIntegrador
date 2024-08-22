@@ -1,8 +1,7 @@
 package com.dh.Backend1_TrabajoIntegrador.servicio.implementacion;
 
 import com.dh.Backend1_TrabajoIntegrador.dao.IDao;
-import com.dh.Backend1_TrabajoIntegrador.dao.implementacion.OdontologoImpl;
-import com.dh.Backend1_TrabajoIntegrador.modelo.Odontologo;
+import com.dh.Backend1_TrabajoIntegrador.dao.implementacion.PacienteImpl;
 import com.dh.Backend1_TrabajoIntegrador.modelo.Paciente;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IPacienteServicio;
 
@@ -10,17 +9,18 @@ import java.util.List;
 
 public class PacienteServicioImpl implements IPacienteServicio {
     private IDao<Paciente> pacienteIDao;
+
     public PacienteServicioImpl() {
-        this.pacienteIDao = new PacienteImpl();
+        pacienteIDao = new PacienteImpl();
     }
 
     @Override
-    public Paciente Listar(Integer id) {
+    public Paciente consultarPorId(Integer id) {
         return null;
     }
 
     @Override
-    public List<Paciente> listarTodos() {
+    public List<Paciente> consultarTodos() {
         return null;
     }
 
@@ -30,8 +30,8 @@ public class PacienteServicioImpl implements IPacienteServicio {
     }
 
     @Override
-    public void modificar(Paciente paciente) {
-
+    public Paciente modificar(Paciente paciente) {
+        return null;
     }
 
     @Override

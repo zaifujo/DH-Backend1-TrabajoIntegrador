@@ -8,33 +8,34 @@ import com.dh.Backend1_TrabajoIntegrador.servicio.IOdontologoServicio;
 import java.util.List;
 
 public class OdontologoServicioImpl implements IOdontologoServicio {
-    private IDao<Odontologo> odontologoIDao;
+    private IDao<Odontologo> odontologoDao;
+
     public OdontologoServicioImpl() {
-        this.odontologoIDao = new OdontologoImpl();
+        this.odontologoDao = new OdontologoImpl();
     }
 
     @Override
-    public Odontologo Listar(Integer id) {
-        return null;
+    public Odontologo consultarPorId(Integer id) {
+        return odontologoDao.consultarPorId(id);
     }
 
     @Override
-    public List<Odontologo> listarTodos() {
-        return null;
+    public List<Odontologo> consultarTodos() {
+        return odontologoDao.consultarTodos();
     }
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
-        return null;
+        return odontologoDao.guardar(odontologo);
     }
 
     @Override
-    public void modificar(Odontologo odontologo) {
-
+    public Odontologo modificar(Odontologo odontologo) {
+        return odontologoDao.modificar(odontologo);
     }
 
     @Override
     public void eliminar(Integer id) {
-
+        odontologoDao.eliminar(id);
     }
 }

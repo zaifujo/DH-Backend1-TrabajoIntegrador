@@ -7,10 +7,13 @@ public class Odontologo {
     private String matricula;
 
     public Odontologo(Integer id, String nombre, String apellido, String matricula) {
-        id = id;
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.matricula = matricula;
+    }
+
+    public Odontologo() {
     }
 
     public Integer getId() {
@@ -18,7 +21,7 @@ public class Odontologo {
     }
 
     public void setId(Integer id) {
-        id = id;
+        this.id = id;
     }
 
     public String getNombre() {

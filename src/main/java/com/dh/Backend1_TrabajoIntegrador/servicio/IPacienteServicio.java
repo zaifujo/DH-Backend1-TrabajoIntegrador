@@ -5,9 +5,9 @@ import com.dh.Backend1_TrabajoIntegrador.modelo.Paciente;
 import java.util.List;
 
 public interface IPacienteServicio {
-    Paciente Listar(Integer id);
-    List<Paciente> listarTodos();
+    Paciente consultarPorId(Integer id);
+    List<Paciente> consultarTodos();
     Paciente guardar(Paciente paciente);
-    void modificar(Paciente paciente);
+    Paciente modificar(Paciente paciente);
     void eliminar(Integer id);
 }

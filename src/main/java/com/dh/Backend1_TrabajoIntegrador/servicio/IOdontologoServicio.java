@@ -5,9 +5,9 @@ import com.dh.Backend1_TrabajoIntegrador.modelo.Odontologo;
 import java.util.List;
 
 public interface IOdontologoServicio {
-    Odontologo Listar(Integer id);
-    List<Odontologo> listarTodos();
+    Odontologo consultarPorId(Integer id);
+    List<Odontologo> consultarTodos();
     Odontologo guardar(Odontologo odontologo);
-    void modificar(Odontologo odontologo);
+    Odontologo modificar(Odontologo odontologo);
     void eliminar(Integer id);
 }

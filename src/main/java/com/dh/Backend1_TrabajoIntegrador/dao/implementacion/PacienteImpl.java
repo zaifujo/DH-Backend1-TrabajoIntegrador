@@ -8,17 +8,17 @@ import java.util.List;
 public class PacienteImpl implements IDao<Paciente> {
 
     @Override
-    public Paciente listar(Integer id) {
+    public Paciente consultarPorId(Integer id) {
         return null;
     }
 
     @Override
-    public List<Paciente> listarTodos() {
+    public List<Paciente> consultarTodos() {
         return null;
     }
 
     @Override
-    public Paciente agregar(Paciente paciente) {
+    public Paciente guardar(Paciente paciente) {
         return null;
     }
 
