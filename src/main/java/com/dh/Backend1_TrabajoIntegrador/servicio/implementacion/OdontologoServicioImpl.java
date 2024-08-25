@@ -4,14 +4,16 @@ import com.dh.Backend1_TrabajoIntegrador.dao.IDao;
 import com.dh.Backend1_TrabajoIntegrador.dao.implementacion.OdontologoImpl;
 import com.dh.Backend1_TrabajoIntegrador.modelo.Odontologo;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IOdontologoServicio;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OdontologoServicioImpl implements IOdontologoServicio {
     private IDao<Odontologo> odontologoDao;
 
-    public OdontologoServicioImpl() {
-        this.odontologoDao = new OdontologoImpl();
+    public OdontologoServicioImpl(IDao<Odontologo> odontologoDao) {
+        this.odontologoDao = odontologoDao;
     }
 
     @Override

@@ -4,38 +4,40 @@ import com.dh.Backend1_TrabajoIntegrador.dao.IDao;
 import com.dh.Backend1_TrabajoIntegrador.dao.implementacion.PacienteImpl;
 import com.dh.Backend1_TrabajoIntegrador.modelo.Paciente;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IPacienteServicio;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PacienteServicioImpl implements IPacienteServicio {
     private IDao<Paciente> pacienteIDao;
 
-    public PacienteServicioImpl() {
-        pacienteIDao = new PacienteImpl();
+    public PacienteServicioImpl(IDao<Paciente> pacienteIDao) {
+        this.pacienteIDao = pacienteIDao;
     }
 
     @Override
     public Paciente consultarPorId(Integer id) {
-        return null;
+        return pacienteIDao.consultarPorId(id);
     }
 
     @Override
     public List<Paciente> consultarTodos() {
-        return null;
+        return pacienteIDao.consultarTodos();
     }
 
     @Override
     public Paciente guardar(Paciente paciente) {
-        return null;
+        return pacienteIDao.guardar(paciente);
     }
 
     @Override
     public Paciente modificar(Paciente paciente) {
-        return null;
+        return pacienteIDao.modificar(paciente);
     }
 
     @Override
     public void eliminar(Integer id) {
-
+        pacienteIDao.eliminar(id);
     }
 }

@@ -35,3 +35,55 @@
 [2024-08-21 23:44:24] [ INFO ] [OdontologoImpl:120] Guardamos el odontologo con nombre Anghelo
 [2024-08-21 23:44:45] [ INFO ] [OdontologoImpl:157] Eliminamos Odontologo con id: 2
 [2024-08-21 23:44:45] [ INFO ] [OdontologoImpl:170] Odontologo eliminado con id: 2
+[2024-08-24 20:08:52] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 20:08:52] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 20:08:52] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 20:08:52] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 20:08:52] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 20:08:52] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 20:12:25] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 20:12:25] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 20:12:25] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 20:12:25] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 20:12:25] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 20:12:25] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 20:14:14] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 20:14:14] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 20:14:14] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 20:14:14] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 20:14:14] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 20:14:14] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 20:44:06] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 20:44:06] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 20:44:06] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 20:44:06] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 20:44:06] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 20:44:06] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 20:45:41] [ INFO ] [OdontologoImpl:157] Eliminamos Odontologo con id: 1
+[2024-08-24 20:45:41] [ INFO ] [OdontologoImpl:170] Odontologo eliminado con id: 1
+[2024-08-24 20:48:33] [ INFO ] [OdontologoImpl:89] Estamos guardando un odontologo
+[2024-08-24 20:48:33] [ INFO ] [OdontologoImpl:120] Guardamos el odontologo con nombre Oriana
+[2024-08-24 22:03:13] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 22:03:13] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 22:03:13] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 22:03:13] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 22:03:13] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 22:03:13] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 22:09:14] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 22:09:15] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 22:09:15] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 22:09:15] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 22:09:15] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 22:09:15] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 22:11:49] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 22:11:49] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 22:11:49] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 22:11:49] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 22:11:49] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 22:11:49] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos
+[2024-08-24 22:12:24] [ INFO ] [BD:47] Estamos creando la tabla pacientes
+[2024-08-24 22:12:24] [ INFO ] [BD:49] Estamos creando la tabla odontologos
+[2024-08-24 22:12:24] [ INFO ] [BD:51] Estamos creando la tabla domicilios
+[2024-08-24 22:12:24] [ INFO ] [BD:54] Estamos insertando un domicilio en la tabla domicilios
+[2024-08-24 22:12:24] [ INFO ] [BD:56] Estamos insertando un paciente en la tabla pacientes
+[2024-08-24 22:12:24] [ INFO ] [BD:58] Estamos insertando un odontologo en la tabla odontologos

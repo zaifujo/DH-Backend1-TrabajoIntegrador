@@ -6,17 +6,20 @@ public class Paciente {
     private Integer id;
     private String nombre;
     private String apellido;
-    private String domicilio;
+    private Domicilio domicilio;
     private String dni;
     private LocalDate fechaAlta;
 
-    public Paciente(Integer id, String nombre, String apellido, String domicilio, String dni, LocalDate fechaAlta) {
+    public Paciente(Integer id, String nombre, String apellido, Domicilio domicilio, String dni, LocalDate fechaAlta) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.domicilio = domicilio;
         this.dni = dni;
         this.fechaAlta = fechaAlta;
+    }
+
+    public Paciente() {
     }
 
     public Integer getId() {
@@ -43,11 +46,11 @@ public class Paciente {
         this.apellido = apellido;
     }
 
-    public String getDomicilio() {
+    public Domicilio getDomicilio() {
         return domicilio;
     }
 
-    public void setDomicilio(String domicilio) {
+    public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
     }
 

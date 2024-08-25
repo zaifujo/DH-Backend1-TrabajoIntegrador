@@ -2,9 +2,7 @@ package com.dh.Backend1_TrabajoIntegrador.dao.implementacion;
 
 import com.dh.Backend1_TrabajoIntegrador.dao.BD;
 import com.dh.Backend1_TrabajoIntegrador.dao.IDao;
-import com.dh.Backend1_TrabajoIntegrador.modelo.Odontologo;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
+import com.dh.Backend1_TrabajoIntegrador.modelo.Domicilio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,31 +11,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class OdontologoImpl implements IDao<Odontologo> {
-    private static final Logger LOGGER = Logger.getLogger(OdontologoImpl.class);
-
+public class DomicilioImpl implements IDao<Domicilio> {
     @Override
-    public Odontologo consultarPorId(Integer id) {
+    public Domicilio consultarPorId(Integer id) {
         Connection connection = null;
-        Odontologo odontologo = null;
+        Domicilio domicilio = null;
 
         try {
             connection = BD.getConnection();
 
             PreparedStatement psBuscarPorId = connection.prepareStatement(
-                    "SELECT * FROM ODONTOLOGOS WHERE ID=?"
+                    "SELECT * FROM DOMICILIOS WHERE ID=?"
             );
             psBuscarPorId.setInt(1, id);
             ResultSet rs = psBuscarPorId.executeQuery();
 
             while (rs.next()) {
-                odontologo = new Odontologo();
-                odontologo.setId(rs.getInt(1));
-                odontologo.setNombre(rs.getString(2));
-                odontologo.setApellido(rs.getString(3));
-                odontologo.setMatricula(rs.getString(4));
+                domicilio = new Domicilio();
+                domicilio.setId(rs.getInt(1));
+                domicilio.setCalle(rs.getString(2));
+                domicilio.setNumero(rs.getInt(3));
+                domicilio.setLocalidad(rs.getString(4));
+                domicilio.setProvincia(rs.getString(5));
+
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,65 +47,73 @@ public class OdontologoImpl implements IDao<Odontologo> {
             }
         }
 
-        return odontologo;
+        return domicilio;
     }
 
     @Override
-    public List<Odontologo> consultarTodos() {
-        Connection connection = null;
-        Odontologo odontologo = null;
-        List<Odontologo> odontologoList = new ArrayList<>();
-
-        try {
-            connection = BD.getConnection();
-
-            Statement buscarTodos = connection.createStatement();
-            ResultSet rs = buscarTodos.executeQuery("SELECT * FROM ODONTOLOGOS");
-
-            while (rs.next()) {
-                odontologo = new Odontologo(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4));
-                odontologoList.add(odontologo);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        return odontologoList;
-    }
-
-    @Override
-    public Odontologo guardar(Odontologo odontologo) {
+    public List<Domicilio> consultarTodos() {
         Connection connection = null;
 
+        List<Domicilio> domicilioList = new ArrayList<>();
+        Domicilio domicilio = null;
+
         try {
-            LOGGER.info("Estamos guardando un odontologo");
             connection = BD.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO ODONTOLOGOS (" +
-                            "NOMBRE, APELLIDO, MATRICULA) VALUES " +
-                            "(?,?,?)", Statement.RETURN_GENERATED_KEYS
+                    "SELECT * FROM DOMICILIOS"
             );
-            preparedStatement.setString(1, odontologo.getNombre());
-            preparedStatement.setString(2, odontologo.getApellido());
-            preparedStatement.setString(3, odontologo.getMatricula());
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()) {
+                domicilio = new Domicilio(rs.getInt(1), rs.getString(2),
+                        rs.getInt(3), rs.getString(4),
+                        rs.getString(5));
+
+                domicilioList.add(domicilio);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return domicilioList;
+    }
+
+    @Override
+    public Domicilio guardar(Domicilio domicilio) {
+        Connection connection = null;
+
+        try {
+
+            connection = BD.getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO DOMICILIOS (" +
+                            "CALLE, NUMERO, LOCALIDAD, PROVINCIA) VALUES " +
+                            "(?,?,?,?)", Statement.RETURN_GENERATED_KEYS
+            );
+
+            preparedStatement.setString(1, domicilio.getCalle());
+            preparedStatement.setInt(2, domicilio.getNumero());
+            preparedStatement.setString(3, domicilio.getLocalidad());
+            preparedStatement.setString(4, domicilio.getProvincia());
 
             preparedStatement.execute();
+
             ResultSet rs = preparedStatement.getGeneratedKeys();
 
             while (rs.next()) {
-                odontologo.setId(rs.getInt(1));
-                System.out.println("Se guardó el odontologo con nombre " +
-                        odontologo.getNombre());
+                domicilio.setId(rs.getInt(1));
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,27 +125,25 @@ public class OdontologoImpl implements IDao<Odontologo> {
             }
         }
 
-        LOGGER.info("Guardamos el odontologo con nombre " + odontologo.getNombre());
-        return odontologo;
+        return domicilio;
     }
 
     @Override
-    public Odontologo modificar(Odontologo odontologo) {
+    public Domicilio modificar(Domicilio domicilio) {
         Connection connection = null;
 
         try {
             connection = BD.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE ODONTOLOGOS SET NOMBRE=?, APELLIDO=?, MATRICULA=? WHERE ID=?"
+                    "UPDATE PACIENTES SET CALLE=?, NUMERO=?, LOCALIDAD=?, PROVINCIA=? WHERE ID=?"
             );
-            preparedStatement.setString(1, odontologo.getNombre());
-            preparedStatement.setString(2, odontologo.getApellido());
-            preparedStatement.setString(3, odontologo.getMatricula());
-            preparedStatement.setInt(4, odontologo.getId());
+            preparedStatement.setString(1, domicilio.getCalle());
+            preparedStatement.setInt(2, domicilio.getNumero());
+            preparedStatement.setString(3, domicilio.getLocalidad());
+            preparedStatement.setString(3, domicilio.getProvincia());
+            preparedStatement.setInt(4, domicilio.getId());
             preparedStatement.execute();
-
-            System.out.println("Este es el nuevo nombre del Odontologo " + odontologo.getNombre());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,25 +155,21 @@ public class OdontologoImpl implements IDao<Odontologo> {
             }
         }
 
-        return odontologo;
+        return domicilio;
     }
 
     @Override
     public void eliminar(Integer id) {
-        LOGGER.info("Eliminamos Odontologo con id: " + id);
         Connection connection = null;
-        Odontologo odontologo = null;
 
         try {
             connection = BD.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "DELETE FROM ODONTOLOGOS WHERE ID = ?"
+                    "DELETE FROM DOMICILIOS WHERE ID = ?"
             );
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-
-            LOGGER.info("Odontologo eliminado con id: " + id);
 
         } catch (Exception e) {
             e.printStackTrace();

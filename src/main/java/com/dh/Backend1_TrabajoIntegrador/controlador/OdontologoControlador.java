@@ -10,11 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/odontologos")
+@CrossOrigin(origins = "*")
 public class OdontologoControlador {
     private IOdontologoServicio odontologoServicio;
 
-    public OdontologoControlador() {
-        this.odontologoServicio = new OdontologoServicioImpl();
+    public OdontologoControlador(IOdontologoServicio odontologoServicio) {
+        this.odontologoServicio = odontologoServicio;
     }
 
     @GetMapping("/{id}")
@@ -22,7 +23,7 @@ public class OdontologoControlador {
         return ResponseEntity.ok(odontologoServicio.consultarPorId(id));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Odontologo>> consultarTodos() {
         return ResponseEntity.ok(odontologoServicio.consultarTodos());
     }
