@@ -9,7 +9,6 @@ window.addEventListener('load', function () {
 
     formulario.addEventListener('submit', function (event) {
 
-
         const formData = {
             nombre: document.querySelector('#nombre').value,
             apellido: document.querySelector('#apellido').value,
@@ -63,7 +62,7 @@ window.addEventListener('load', function () {
         document.querySelector('#nombre').value = "";
         document.querySelector('#apellido').value = "";
         document.querySelector('#domicilio_calle').value = "";
-        document.querySelector('#domicilio_numero').value= "";
+        document.querySelector('#domicilio_numero').value = "";
         document.querySelector('#domicilio_localidad').value = "";
         document.querySelector('#domicilio_provincia').value = "";
         document.querySelector('#dni').value = "";

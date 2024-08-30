@@ -1,8 +1,7 @@
 package com.dh.Backend1_TrabajoIntegrador.controlador;
 
-import com.dh.Backend1_TrabajoIntegrador.modelo.Odontologo;
+import com.dh.Backend1_TrabajoIntegrador.entidad.Odontologo;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IOdontologoServicio;
-import com.dh.Backend1_TrabajoIntegrador.servicio.implementacion.OdontologoServicioImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/odontologos")
-@CrossOrigin(origins = "*")
 public class OdontologoControlador {
     private IOdontologoServicio odontologoServicio;
 
@@ -19,7 +17,7 @@ public class OdontologoControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> consultarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Odontologo> consultarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(odontologoServicio.consultarPorId(id));
     }
 
@@ -34,12 +32,12 @@ public class OdontologoControlador {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Odontologo> modificar(@PathVariable Integer id, @RequestBody Odontologo odontologo) {
+    public ResponseEntity<Odontologo> modificar(@PathVariable Long id, @RequestBody Odontologo odontologo) {
         return ResponseEntity.ok(odontologoServicio.modificar(odontologo));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         odontologoServicio.eliminar(id);
         return ResponseEntity.noContent().build();
     }

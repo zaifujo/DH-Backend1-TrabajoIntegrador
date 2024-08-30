@@ -2,7 +2,7 @@ function deleteBy(id) {
     //con fetch invocamos a la API de peliculas con el método DELETE
     //pasandole el id en la URL
     //const url = '/pacientes/'+ id;
-    const url = 'http://localhost:8081/pacientes/'+ id;
+    const url = 'http://localhost:8080/pacientes/'+ id;
     const settings = {
         method: 'DELETE'
     }

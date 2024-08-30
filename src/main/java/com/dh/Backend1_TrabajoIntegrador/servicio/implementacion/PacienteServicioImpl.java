@@ -1,43 +1,45 @@
 package com.dh.Backend1_TrabajoIntegrador.servicio.implementacion;
 
-import com.dh.Backend1_TrabajoIntegrador.dao.IDao;
-import com.dh.Backend1_TrabajoIntegrador.dao.implementacion.PacienteImpl;
-import com.dh.Backend1_TrabajoIntegrador.modelo.Paciente;
+import com.dh.Backend1_TrabajoIntegrador.entidad.Paciente;
+import com.dh.Backend1_TrabajoIntegrador.entidad.Turno;
+import com.dh.Backend1_TrabajoIntegrador.repositorio.IPacienteRepositorio;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IPacienteServicio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteServicioImpl implements IPacienteServicio {
-    private IDao<Paciente> pacienteIDao;
+    private IPacienteRepositorio iPacienteRepositorio;
 
-    public PacienteServicioImpl(IDao<Paciente> pacienteIDao) {
-        this.pacienteIDao = pacienteIDao;
+    public PacienteServicioImpl(IPacienteRepositorio iPacienteRepositorio) {
+        this.iPacienteRepositorio = iPacienteRepositorio;
     }
 
     @Override
-    public Paciente consultarPorId(Integer id) {
-        return pacienteIDao.consultarPorId(id);
+    public Paciente consultarPorId(Long id) {
+        Optional<Paciente> pacienteBuscado =  iPacienteRepositorio.findById(id);
+        return pacienteBuscado.orElse(null);
     }
 
     @Override
     public List<Paciente> consultarTodos() {
-        return pacienteIDao.consultarTodos();
+        return iPacienteRepositorio.findAll();
     }
 
     @Override
     public Paciente guardar(Paciente paciente) {
-        return pacienteIDao.guardar(paciente);
+        return iPacienteRepositorio.save(paciente);
     }
 
     @Override
     public Paciente modificar(Paciente paciente) {
-        return pacienteIDao.modificar(paciente);
+        return iPacienteRepositorio.save(paciente);
     }
 
     @Override
-    public void eliminar(Integer id) {
-        pacienteIDao.eliminar(id);
+    public void eliminar(Long id) {
+        iPacienteRepositorio.deleteById(id);
     }
 }
