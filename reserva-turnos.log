@@ -215,3 +215,17 @@
 [2024-08-29 20:39:29] [ INFO ] [OdontologoImpl:122] Guardamos el odontologo con nombre oriana
 [2024-08-29 21:22:53] [ INFO ] [PacienteImpl:186] Eliminamos Paciente con id: 2
 [2024-08-29 21:22:53] [ INFO ] [PacienteImpl:201] Paciente eliminado con id: 2
+[2024-09-03 21:49:29] [ INFO ] [OdontologoControlador:57] Odontólogo registrado con éxito, ID: 1
+[2024-09-03 21:49:38] [ INFO ] [OdontologoControlador:29] Buscando odontologo por ID con éxito
+[2024-09-03 21:49:49] [ INFO ] [PacienteControlador:59] Paciente registrado con éxito, ID: 1
+[2024-09-03 21:49:55] [ INFO ] [PacienteControlador:32] Buscando paciente por ID con éxito
+[2024-09-03 21:50:04] [ INFO ] [TurnoControlador:58] Turno registrado con éxito, ID: 1
+[2024-09-03 21:50:26] [ INFO ] [TurnoControlador:30] Buscando turno por ID con éxito
+[2024-09-03 21:55:54] [ INFO ] [OdontologoControlador:43] No se encontraron odontólogos.
+[2024-09-03 21:55:59] [ INFO ] [OdontologoControlador:57] Odontólogo registrado con éxito, ID: 1
+[2024-09-03 21:56:05] [ INFO ] [OdontologoControlador:46] Consulta de odontólogos exitosa.
+[2024-09-03 21:56:15] [ INFO ] [PacienteControlador:46] No se encontraron pacientes.
+[2024-09-03 21:56:21] [ INFO ] [PacienteControlador:59] Paciente registrado con éxito, ID: 1
+[2024-09-03 21:56:25] [ INFO ] [PacienteControlador:49] Consulta de pacientes exitosa.
+[2024-09-03 21:56:33] [ INFO ] [TurnoControlador:44] No se encontraron turnos.
+[2024-09-03 21:57:12] [ INFO ] [TurnoControlador:47] Consulta de turnos exitosa.

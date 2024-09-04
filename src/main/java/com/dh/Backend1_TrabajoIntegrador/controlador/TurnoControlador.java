@@ -51,7 +51,6 @@ public class TurnoControlador {
 
     @PostMapping
     public ResponseEntity<Turno> guardar(@RequestBody Turno turno) {
-
         Turno turnoGuardado = iTurnoServicio.guardar(turno);
 
         if (turnoGuardado != null) {
