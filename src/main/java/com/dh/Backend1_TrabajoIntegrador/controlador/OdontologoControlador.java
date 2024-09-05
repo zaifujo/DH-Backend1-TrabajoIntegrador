@@ -3,6 +3,7 @@ package com.dh.Backend1_TrabajoIntegrador.controlador;
 import com.dh.Backend1_TrabajoIntegrador.entidad.Odontologo;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IOdontologoServicio;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,20 +17,21 @@ public class OdontologoControlador {
     private IOdontologoServicio odontologoServicio;
     private static final Logger LOGGER = Logger.getLogger(OdontologoControlador.class);
 
+    @Autowired
     public OdontologoControlador(IOdontologoServicio odontologoServicio) {
         this.odontologoServicio = odontologoServicio;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> consultarPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<Odontologo> consultarPorId(@PathVariable Long id) {
 
         Odontologo odontologoBuscado = odontologoServicio.consultarPorId(id);
 
         if (odontologoBuscado != null) {
-            LOGGER.info("Buscando odontologo por ID con éxito");
+            LOGGER.info("Odontólogo encontrado: " + odontologoBuscado.toString());
             return ResponseEntity.ok(odontologoBuscado);
         } else {
-            LOGGER.info("No se encontró odontologo por ID");
+            LOGGER.info("No se encontró odontólogo con ID:" + id);
             return ResponseEntity.notFound().build();
         }
     }
@@ -54,7 +56,7 @@ public class OdontologoControlador {
         Odontologo odontologoGuardado = odontologoServicio.guardar(odontologo);
 
         if (odontologoGuardado != null) {
-            LOGGER.info("Odontólogo registrado con éxito, ID: " + odontologoGuardado.getId());
+            LOGGER.info("Odontólogo registrado con éxito: " + odontologoGuardado.toString());
             return ResponseEntity.created(URI.create("/odontologos/" + odontologoGuardado.getId()))
                     .body(odontologoGuardado);
         } else {
@@ -70,12 +72,12 @@ public class OdontologoControlador {
         Odontologo odontologoBuscado = odontologoServicio.consultarPorId(odontologo.getId());
 
         if (odontologoBuscado != null) {
-            odontologoServicio.modificar(odontologo);
-            LOGGER.info("Se actualizó correctamente el odontólogo");
-            return ResponseEntity.ok("Odontólogo actualizado: " + odontologo.getNombre());
+            Odontologo odontologoModificado = odontologoServicio.modificar(odontologo);
+            LOGGER.info("Se actualizó correctamente el odontólogo: " + odontologoModificado.toString());
+            return ResponseEntity.ok("Odontólogo actualizado: " + odontologo.getId());
         } else {
-            LOGGER.info("No se pudo actualizar odontólogo, ID no encontrado");
-            return ResponseEntity.badRequest().body("Odontólogo no encontrado: " + odontologo.getNombre());
+            LOGGER.info("No se pudo actualizar odontólogo, ID no encontrado: " + odontologo.getId());
+            return ResponseEntity.badRequest().body("Odontólogo no encontrado: " + odontologo.getId());
         }
     }
 

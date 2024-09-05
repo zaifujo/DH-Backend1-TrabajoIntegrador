@@ -2,7 +2,7 @@ window.addEventListener('load', function () {
     const formulario = document.querySelector('#update_paciente_form');
 
     formulario.addEventListener('submit', function (event) {
-        let pacienteId = document.querySelector('#paciente_id').value;
+        //let pacienteId = document.querySelector('#paciente_id').value;
 
         const formData = {
             id: document.querySelector('#paciente_id').value,
@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
             dni: document.querySelector('#dni').value,
             fechaAlta: document.querySelector('#fecha_alta').value,
         }
-        const url = 'http://localhost:8080/pacientes/' + pacienteId;
+        const url = 'http://localhost:8080/pacientes';// + /pacienteId;
         const settings = {
             method: 'PUT',
             headers: {

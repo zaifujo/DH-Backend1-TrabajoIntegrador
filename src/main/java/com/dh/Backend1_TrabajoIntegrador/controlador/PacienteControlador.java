@@ -1,9 +1,9 @@
 package com.dh.Backend1_TrabajoIntegrador.controlador;
 
-import com.dh.Backend1_TrabajoIntegrador.entidad.Odontologo;
 import com.dh.Backend1_TrabajoIntegrador.entidad.Paciente;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IPacienteServicio;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,23 +16,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteControlador {
-    private IPacienteServicio iPacienteServicio;
+    private IPacienteServicio pacienteServicio;
     private static final Logger LOGGER = Logger.getLogger(PacienteControlador.class);
 
-    public PacienteControlador(IPacienteServicio iPacienteServicio) {
-        this.iPacienteServicio = iPacienteServicio;
+    @Autowired
+    public PacienteControlador(IPacienteServicio pacienteServicio) {
+        this.pacienteServicio = pacienteServicio;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> consultarPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<Paciente> consultarPorId(@PathVariable Long id) {
 
-        Paciente pacienteBuscado = iPacienteServicio.consultarPorId(id);
+        Paciente pacienteBuscado = pacienteServicio.consultarPorId(id);
 
         if (pacienteBuscado != null) {
-            LOGGER.info("Buscando paciente por ID con éxito");
+            LOGGER.info("Paciente encontrado: " + pacienteBuscado.toString());
             return ResponseEntity.ok(pacienteBuscado);
         } else {
-            LOGGER.info("No se encontró paciente por ID");
+            LOGGER.info("No se encontró paciente con ID:" + id);
             return ResponseEntity.notFound().build();
         }
     }
@@ -40,7 +41,7 @@ public class PacienteControlador {
     @GetMapping
     public ResponseEntity<List<Paciente>> consultarTodos() {
 
-        List<Paciente> pacientes = iPacienteServicio.consultarTodos();
+        List<Paciente> pacientes = pacienteServicio.consultarTodos();
 
         if (pacientes.isEmpty()) {
             LOGGER.info("No se encontraron pacientes.");
@@ -54,9 +55,10 @@ public class PacienteControlador {
     @PostMapping
     public ResponseEntity<Paciente> guardar(@RequestBody Paciente paciente) {
 
-        Paciente pacienteGuardado = iPacienteServicio.guardar(paciente);
+        Paciente pacienteGuardado = pacienteServicio.guardar(paciente);
+
         if (pacienteGuardado != null) {
-            LOGGER.info("Paciente registrado con éxito, ID: " + pacienteGuardado.getId());
+            LOGGER.info("Paciente registrado con éxito: " + pacienteGuardado.toString());
             return ResponseEntity.created(URI.create("/pacientes/" + pacienteGuardado.getId()))
                     .body(pacienteGuardado);
         } else {
@@ -69,25 +71,25 @@ public class PacienteControlador {
     @PutMapping
     public ResponseEntity<String> modificar(@RequestBody Paciente paciente) {
 
-        Paciente pacienteBuscado = iPacienteServicio.consultarPorId(paciente.getId());
+        Paciente pacienteBuscado = pacienteServicio.consultarPorId(paciente.getId());
 
         if (pacienteBuscado != null) {
-            iPacienteServicio.modificar(pacienteBuscado);
-            LOGGER.info("Se actualizó correctamente el paciente");
-            return ResponseEntity.ok("Paciente actualizado: " + paciente.getNombre());
+            Paciente pacienteModificado = pacienteServicio.modificar(paciente);
+            LOGGER.info("Se actualizó correctamente el paciente: " + pacienteModificado.toString());
+            return ResponseEntity.ok("Paciente actualizado: " + paciente.getId());
         } else {
-            LOGGER.info("No se pudo actualizar el paciente, ID no encontrado");
-            return ResponseEntity.badRequest().body("Paciente no encontrado: " + paciente.getNombre());
+            LOGGER.info("No se pudo actualizar el paciente, ID no encontrado: " + paciente.getId());
+            return ResponseEntity.badRequest().body("Paciente no encontrado: " + paciente.getId());
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
 
-        Paciente pacienteBuscado = iPacienteServicio.consultarPorId(id);
+        Paciente pacienteBuscado = pacienteServicio.consultarPorId(id);
 
         if (pacienteBuscado != null) {
-            iPacienteServicio.eliminar(id);
+            pacienteServicio.eliminar(id);
             LOGGER.info("Paciente eliminado con éxito, ID: " + id);
             return ResponseEntity.ok("Paciente eliminado con éxito: " + id);
         } else {

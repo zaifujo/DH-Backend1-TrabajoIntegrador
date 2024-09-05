@@ -1,39 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pacientes</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Turnos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html">Clínica Odontológica</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+        <a class="navbar-brand" href="./index.html">Clinica Odontológica</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="./odontologoList.html">Listado de Odontólogos</a>
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Odontólogos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./odontologoAlta.html">Agregar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./odontologoList.html">Listar Todos</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./odontologoAlta.html">Alta de Odontólogos</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pacientes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./pacienteAlta.html">Agregar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./pacienteList.html">Listar Todos</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./pacienteList.html">Listado de Pacientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./pacienteAlta.html">Alta de Pacientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="./turnoList.html">Listado de Turnos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./turnoAlta.html">Alta de Turnos</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Turnos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./turnoAlta.html">Agregar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./turnoList.html">Listar Todos</a></li>
+
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -55,7 +69,7 @@
                             <th>Domicilio</th>
                             <th>DNI</th>
                             <th>Fecha de Alta</th>
-                            <th></th>
+                            <th>Eliminar</th>
                         </tr>
                         </thead>
                         <tbody id="pacienteTableBody">
@@ -67,7 +81,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12 col-md-6" style="display: none; background-color:#e6fffa; padding:10px; border-radius:3px" id="div_paciente_updating">
+        <div class="col-sm-12 col-md-6" style="display: none; background-color:#e4f4fd; padding:10px; border-radius:3px" id="div_paciente_updating">
             <h3>Modificar Paciente</h3>
             <form id="update_paciente_form">
                 <div class="form-group">
@@ -119,9 +133,10 @@
     </div>
     <hr>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="./js/get_paciente.js"></script>
 <script type="text/javascript" src="./js/update_paciente.js"></script>
 <script type="text/javascript" src="./js/delete_paciente.js"></script>

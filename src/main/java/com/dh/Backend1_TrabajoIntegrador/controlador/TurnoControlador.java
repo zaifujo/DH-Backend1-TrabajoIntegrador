@@ -1,6 +1,4 @@
 package com.dh.Backend1_TrabajoIntegrador.controlador;
-import com.dh.Backend1_TrabajoIntegrador.entidad.Odontologo;
-import com.dh.Backend1_TrabajoIntegrador.entidad.Paciente;
 import com.dh.Backend1_TrabajoIntegrador.entidad.Turno;
 import com.dh.Backend1_TrabajoIntegrador.servicio.ITurnoServicio;
 import org.apache.log4j.Logger;
@@ -11,26 +9,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/turnos")
 public class TurnoControlador {
+    private ITurnoServicio turnoServicio;
+    private static final Logger LOGGER = Logger.getLogger(TurnoControlador.class);
 
     @Autowired
-    private ITurnoServicio iTurnoServicio;
-    private static final Logger LOGGER = Logger.getLogger(TurnoControlador.class);
+    public TurnoControlador(ITurnoServicio turnoServicio) {
+        this.turnoServicio = turnoServicio;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Turno> consultarPorId(@PathVariable Long id) {
 
-        Turno turnoBuscado = iTurnoServicio.consultarPorId(id);
+        Turno turnoBuscado = turnoServicio.consultarPorId(id);
 
         if (turnoBuscado != null) {
-            LOGGER.info("Buscando turno por ID con éxito");
+            LOGGER.info("Turno encontrado: " + turnoBuscado.toString());
             return ResponseEntity.ok(turnoBuscado);
         } else {
-            LOGGER.info("No se encontró turno por ID");
+            LOGGER.info("No se encontró turno con ID:" + id);
             return ResponseEntity.notFound().build();
         }
     }
@@ -38,7 +38,7 @@ public class TurnoControlador {
     @GetMapping
     public ResponseEntity<List<Turno>> consultarTodos() {
 
-        List<Turno> turnos = iTurnoServicio.consultarTodos();
+        List<Turno> turnos = turnoServicio.consultarTodos();
 
         if (turnos.isEmpty()) {
             LOGGER.info("No se encontraron turnos.");
@@ -51,39 +51,41 @@ public class TurnoControlador {
 
     @PostMapping
     public ResponseEntity<Turno> guardar(@RequestBody Turno turno) {
-        Turno turnoGuardado = iTurnoServicio.guardar(turno);
+
+        Turno turnoGuardado = turnoServicio.guardar(turno);
 
         if (turnoGuardado != null) {
-            LOGGER.info("Turno registrado con éxito, ID: " + turnoGuardado.getId());
-            return ResponseEntity.created(URI.create("/odontologos/" + turnoGuardado.getId()))
-                    .body(turnoGuardado);
+            LOGGER.info("Turno registrado con éxito: " + turnoGuardado.toString());
+            return ResponseEntity.ok(turnoGuardado);
         } else {
-            LOGGER.warn("No se pudo registrar el odontólogo");
+            LOGGER.warn("No se pudo registrar el turno.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(null);
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> modificar(@PathVariable Long id, @RequestBody Turno turno) {
-        Turno turnoBuscado = iTurnoServicio.consultarPorId(turno.getId());
+    @PutMapping
+    public ResponseEntity<Turno> modificar(@RequestBody Turno turno) {
+
+        Turno turnoBuscado = turnoServicio.consultarPorId(turno.getId());
+
         if (turnoBuscado != null) {
-            iTurnoServicio.modificar(turno);
-            LOGGER.info("Se actualizó correctamente el turno");
-            return ResponseEntity.ok("Turno actualizado: " + turnoBuscado.getFecha());
+            Turno turnoModificado = turnoServicio.modificar(turno);
+            LOGGER.info("Se actualizó correctamente el turno: " + turnoModificado.toString());
+            return ResponseEntity.ok(turnoModificado);
         } else {
-            LOGGER.info("No se pudo actualizar turno, ID no encontrado");
-            return ResponseEntity.badRequest().body("Turno no encontrado: " + turnoBuscado.getFecha());
+            LOGGER.info("No se pudo actualizar turno, ID no encontrado: " + turno.getId());
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
 
-        Turno turnoBuscado = iTurnoServicio.consultarPorId(id);
+        Turno turnoBuscado = turnoServicio.consultarPorId(id);
 
         if (turnoBuscado != null) {
-            iTurnoServicio.eliminar(id);
+            turnoServicio.eliminar(id);
             LOGGER.info("Turno eliminado con éxito, ID: " + id);
             return ResponseEntity.ok("Turno eliminado con éxito: " + id);
         } else {

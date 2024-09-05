@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agregar Paciente</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-          crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -18,9 +17,36 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="./pacienteList.html">Listar Pacientes</a>
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Odontólogos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./odontologoAlta.html">Agregar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./odontologoList.html">Listar Todos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pacientes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./pacienteAlta.html">Agregar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./pacienteList.html">Listar Todos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Turnos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./turnoAlta.html">Agregar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./turnoList.html">Listar Todos</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -39,22 +65,32 @@
                 <label class="form-label" for="apellido">Apellido:</label>
                 <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese el apellido" required>
             </div>
-            <div class="form-group mb-3">
-                <label class="form-label" for="domicilio_calle">Domicilio Calle:</label>
-                <input type="text" class="form-control" id="domicilio_calle" name="domicilio_calle" placeholder="Ingrese el domicilio calle" required>
+
+            <!-- Tarjeta de domicilio -->
+            <div class="card mb-3" >
+                <div class="card-header">
+                    <h5 class="card-title">Domicilio</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="domicilio_calle">Calle:</label>
+                        <input type="text" class="form-control" id="domicilio_calle" name="domicilio_calle" placeholder="Ingrese la calle" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="domicilio_numero">Número:</label>
+                        <input type="text" class="form-control" id="domicilio_numero" name="domicilio_numero" placeholder="Ingrese el número" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="domicilio_localidad">Localidad:</label>
+                        <input type="text" class="form-control" id="domicilio_localidad" name="domicilio_localidad" placeholder="Ingrese la localidad" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="domicilio_provincia">Provincia:</label>
+                        <input type="text" class="form-control" id="domicilio_provincia" name="domicilio_provincia" placeholder="Ingrese la provincia" required>
+                    </div>
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label class="form-label" for="domicilio_numero">Domicilio Numero:</label>
-                <input type="text" class="form-control" id="domicilio_numero" name="domicilio_numero" placeholder="Ingrese el domicilio numero" required>
-            </div>
-            <div class="form-group mb-3">
-                <label class="form-label" for="domicilio_localidad">Domicilio Localidad:</label>
-                <input type="text" class="form-control" id="domicilio_localidad" name="domicilio_localidad" placeholder="Ingrese el domicilio localidad" required>
-            </div>
-            <div class="form-group mb-3">
-                <label class="form-label" for="domicilio_provincia">Domicilio Provincia:</label>
-                <input type="text" class="form-control" id="domicilio_provincia" name="domicilio_provincia" placeholder="Ingrese el domicilio provincia" required>
-            </div>
+
             <div class="form-group mb-3">
                 <label class="form-label" for="dni">DNI:</label>
                 <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese el DNI" required>

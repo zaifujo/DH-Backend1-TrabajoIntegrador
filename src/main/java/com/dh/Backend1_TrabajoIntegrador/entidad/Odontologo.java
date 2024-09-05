@@ -20,10 +20,24 @@ public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
+
     private String apellido;
+
     private String matricula;
+
     @OneToMany(mappedBy = "odontologo")
     @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Odontologo{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", matricula='" + matricula + '\'' +
+                '}';
+    }
 }

@@ -21,13 +21,31 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
+
     private String apellido;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Domicilio domicilio;
+
     private String dni;
+
     private LocalDate fechaAlta;
+
     @OneToMany(mappedBy = "paciente")
     @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", domicilio=" + domicilio +
+                ", dni='" + dni + '\'' +
+                ", fechaAlta=" + fechaAlta +
+                '}';
+    }
 }

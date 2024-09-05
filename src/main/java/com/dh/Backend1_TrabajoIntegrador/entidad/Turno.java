@@ -18,9 +18,22 @@ public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Odontologo odontologo;
+
     @ManyToOne
     private Paciente paciente;
+
     private LocalDate fecha;
+
+    @Override
+    public String toString() {
+        return "Turno{" +
+                "id=" + id +
+                ", odontologo=" + odontologo +
+                ", paciente=" + paciente +
+                ", fecha=" + fecha +
+                '}';
+    }
 }
