@@ -3,7 +3,7 @@ function deleteBy(id)  {
     const settings = {
         method: 'DELETE'
     }
-    fetch(url,settings)
+    fetch(url, settings)
         .then(response => response.json())
 
     let row_id = "#tr_" + id;

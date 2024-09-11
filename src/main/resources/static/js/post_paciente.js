@@ -5,8 +5,6 @@ document.getElementById("add_new_paciente").onsubmit=function(e) {
 window.addEventListener('load', function () {
 
     const formulario = document.querySelector('#add_new_paciente');
-
-
     formulario.addEventListener('submit', function (event) {
 
         const formData = {
@@ -19,8 +17,7 @@ window.addEventListener('load', function () {
                 provincia: document.querySelector('#domicilio_provincia').value,
             },
             dni: document.querySelector('#dni').value,
-            fechaAlta: document.querySelector('#fecha_alta').value,
-
+            fechaAlta: document.querySelector('#fecha_alta').value
         };
 
         const url = 'http://localhost:8080/pacientes';
@@ -46,17 +43,15 @@ window.addEventListener('load', function () {
 
             })
             .catch(error => {
-
                 let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                     '<strong> Error intente nuevamente</strong> </div>'
 
                 document.querySelector('#response').innerHTML = errorAlert;
                 document.querySelector('#response').style.display = "block";
-                //se dejan todos los campos vacíos por si se quiere ingresar otra pelicula
-                resetUploadForm();})
+                resetUploadForm();
+            })
     });
-
 
     function resetUploadForm(){
         document.querySelector('#nombre').value = "";
@@ -67,12 +62,11 @@ window.addEventListener('load', function () {
         document.querySelector('#domicilio_provincia').value = "";
         document.querySelector('#dni').value = "";
         document.querySelector('#fecha_alta').value = "";
-
     }
 
     (function(){
         let pathname = window.location.pathname;
-        if(pathname === "/"){
+        if (pathname === "/") {
             document.querySelector(".nav .nav-item a:first").addClass("active");
         } else if (pathname == "/pacienteList.html") {
             document.querySelector(".nav .nav-item a:last").addClass("active");

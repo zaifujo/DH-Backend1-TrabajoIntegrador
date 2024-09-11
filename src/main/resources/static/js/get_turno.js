@@ -6,12 +6,12 @@ window.addEventListener('load', function () {
             method: 'GET'
         }
 
-        fetch(url,settings)
+        fetch(url, settings)
             .then(response => response.json())
             .then(data => {
-                for(turno of data){
+                for (turno of data) {
                     var table = document.getElementById("turnoTable");
-                    var turnoRow =table.insertRow();
+                    var turnoRow = table.insertRow();
                     let tr_id = 'tr_' + turno.id;
                     turnoRow.id = tr_id;
 
@@ -21,20 +21,27 @@ window.addEventListener('load', function () {
                         '&times' +
                         '</button>';
 
-
                     let updateButton = '<button' +
                         ' id=' + '\"' + 'btn_id_' + turno.id + '\"' +
                         ' type="button" onclick="findBy('+turno.id+')" class="btn btn-info btn_id">' +
                         turno.id +
                         '</button>';
 
+                    let turno_paciente =
+                        turno.paciente.nombre + ' ' +
+                        turno.paciente.apellido + ' ' +
+                        '(DNI: ' + turno.paciente.dni + ')';
+                    let turno_odontologo =
+                        turno.odontologo.nombre + ' ' +
+                        turno.odontologo.apellido + ' ' +
+                        '(MATRÍCULA: ' + turno.odontologo.matricula + ')';
+
                     turnoRow.innerHTML = '<td>' + updateButton + '</td>' +
-                        '<td class=\"td_paciente\">' + turno.paciente.nombre + ' ' + turno.paciente.apellido + '</td>' +
-                        '<td class=\"td_odontologo\">' + turno.odontologo.nombre + ' ' + turno.odontologo.apellido + ' ' +  turno.odontologo.matricula + '</td>' +
+                        '<td class=\"td_paciente\">' + turno_paciente.toUpperCase() + '</td>' +
+                        '<td class=\"td_odontologo\">' + turno_odontologo.toUpperCase() + '</td>' +
                         '<td class=\"td_fecha\">' + turno.fecha + '</td>' +
                         '<td>' + deleteButton + '</td>';
-                };
-
+                }
             })
     })
 
@@ -45,5 +52,4 @@ window.addEventListener('load', function () {
         }
     })
 
-
-})
+});

@@ -1,18 +1,16 @@
 window.addEventListener('load', function () {
+
     const formulario = document.querySelector('#update_odontologo_form');
 
     formulario.addEventListener('submit', function (event) {
-        //let odontologoId = document.querySelector('#odontologo_id').value;
-
         const formData = {
             id: document.querySelector('#odontologo_id').value,
             nombre: document.querySelector('#nombre').value,
             apellido: document.querySelector('#apellido').value,
             matricula: document.querySelector('#matricula').value,
-        };
+        }
 
-        //const url = '/odontologos';
-        const url = 'http://localhost:8080/odontologos';// + /odontologoId;
+        const url = 'http://localhost:8080/odontologos';
         const settings = {
             method: 'PUT',
             headers: {
@@ -20,17 +18,19 @@ window.addEventListener('load', function () {
             },
             body: JSON.stringify(formData)
         }
+
         fetch(url,settings)
             .then(response => response.json())
     })
 })
 
 function findBy(id) {
-    //const url = '/odontologos'+"/"+id;
-    const url = 'http://localhost:8080/odontologos'+"/"+id;
+
+    const url = 'http://localhost:8080/odontologos/' + id;
     const settings = {
         method: 'GET'
     }
+
     fetch(url,settings)
         .then(response => response.json())
         .then(data => {

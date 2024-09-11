@@ -1,9 +1,8 @@
 window.addEventListener('load', function () {
+
     const formulario = document.querySelector('#update_paciente_form');
 
     formulario.addEventListener('submit', function (event) {
-        //let pacienteId = document.querySelector('#paciente_id').value;
-
         const formData = {
             id: document.querySelector('#paciente_id').value,
             nombre: document.querySelector('#nombre').value,
@@ -18,7 +17,8 @@ window.addEventListener('load', function () {
             dni: document.querySelector('#dni').value,
             fechaAlta: document.querySelector('#fecha_alta').value,
         }
-        const url = 'http://localhost:8080/pacientes';// + /pacienteId;
+
+        const url = 'http://localhost:8080/pacientes';
         const settings = {
             method: 'PUT',
             headers: {
@@ -26,6 +26,7 @@ window.addEventListener('load', function () {
             },
             body: JSON.stringify(formData)
         }
+
         fetch(url,settings)
             .then(response => response.json())
     })
@@ -33,10 +34,11 @@ window.addEventListener('load', function () {
 
 function findBy(id) {
 
-    const url = 'http://localhost:8080/pacientes'+"/"+id;
+    const url = 'http://localhost:8080/pacientes/' + id;
     const settings = {
         method: 'GET'
     }
+
     fetch(url,settings)
         .then(response => response.json())
         .then(data => {
@@ -53,7 +55,8 @@ function findBy(id) {
             document.querySelector('#fecha_alta').value = paciente.fechaAlta;
 
             document.querySelector('#div_paciente_updating').style.display = "block";
-        }).catch(error => {
-        alert("Error: " + error);
-    })
+        })
+        .catch(error => {
+            alert("Error: " + error);
+        })
 }

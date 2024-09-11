@@ -6,13 +6,12 @@ window.addEventListener('load', function () {
             method: 'GET'
         }
 
-        fetch(url,settings)
+        fetch(url, settings)
             .then(response => response.json())
             .then(data => {
-
-                for(odontologo of data){
+                for (odontologo of data) {
                     var table = document.getElementById("odontologoTable");
-                    var odontologoRow =table.insertRow();
+                    var odontologoRow = table.insertRow();
                     let tr_id = 'tr_' + odontologo.id;
                     odontologoRow.id = tr_id;
 
@@ -33,8 +32,7 @@ window.addEventListener('load', function () {
                         '<td class=\"td_apellido\">' + odontologo.apellido.toUpperCase() + '</td>' +
                         '<td class=\"td_matricula\">' + odontologo.matricula + '</td>' +
                         '<td>' + deleteButton + '</td>';
-                };
-
+                }
             })
     })
 
@@ -44,4 +42,5 @@ window.addEventListener('load', function () {
             document.querySelector(".nav .nav-item a:last").addClass("active");
         }
     })
-})
+
+});

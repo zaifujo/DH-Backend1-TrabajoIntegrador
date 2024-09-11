@@ -6,12 +6,12 @@ window.addEventListener('load', function () {
             method: 'GET'
         }
 
-        fetch(url,settings)
+        fetch(url, settings)
             .then(response => response.json())
             .then(data => {
-                for(paciente of data){
+                for (paciente of data) {
                     var table = document.getElementById("pacienteTable");
-                    var pacienteRow =table.insertRow();
+                    var pacienteRow = table.insertRow();
                     let tr_id = 'tr_' + paciente.id;
                     pacienteRow.id = tr_id;
 
@@ -21,27 +21,26 @@ window.addEventListener('load', function () {
                         '&times' +
                         '</button>';
 
-
                     let updateButton = '<button' +
                         ' id=' + '\"' + 'btn_id_' + paciente.id + '\"' +
                         ' type="button" onclick="findBy('+paciente.id+')" class="btn btn-info btn_id">' +
                         paciente.id +
                         '</button>';
 
-                    let pacienteDomicilio = paciente.domicilio.calle + ' ' +
+                    let pacienteDomicilio =
+                        paciente.domicilio.calle + ' ' +
                         paciente.domicilio.numero + ' ' +
                         paciente.domicilio.localidad + ' ' +
                         paciente.domicilio.provincia;
 
                     pacienteRow.innerHTML = '<td>' + updateButton + '</td>' +
-                        '<td class=\"td_nombre\">' + paciente.nombre + '</td>' +
-                        '<td class=\"td_apellido\">' + paciente.apellido + '</td>' +
-                        '<td class=\"td_domicilio\">' + pacienteDomicilio + '</td>' +
+                        '<td class=\"td_nombre\">' + paciente.nombre.toUpperCase() + '</td>' +
+                        '<td class=\"td_apellido\">' + paciente.apellido.toUpperCase() + '</td>' +
+                        '<td class=\"td_domicilio\">' + pacienteDomicilio.toUpperCase() + '</td>' +
                         '<td class=\"td_dni\">' + paciente.dni+ '</td>' +
                         '<td class=\"td_fecha_alta\">' + paciente.fechaAlta + '</td>' +
                         '<td>' + deleteButton + '</td>';
-                };
-
+                }
             })
     })
 
@@ -52,5 +51,4 @@ window.addEventListener('load', function () {
         }
     })
 
-
-})
+});
