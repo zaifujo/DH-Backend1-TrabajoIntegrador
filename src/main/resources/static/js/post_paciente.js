@@ -2,7 +2,22 @@ document.getElementById("add_new_paciente").onsubmit=function(e) {
     e.preventDefault();
 };
 
+// POST
 window.addEventListener('load', function () {
+
+    // Obtener la fecha local actual
+    const today = new Date();
+
+    // Obtener el año, mes y día ajustados al formato yyyy-mm-dd
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Meses son 0-indexados
+    const day = String(today.getDate()).padStart(2, '0');
+
+    // Formatear la fecha al formato aceptado por el campo "date" (yyyy-mm-dd)
+    const localDate = `${year}-${month}-${day}`;
+
+    // Asignar la fecha al campo
+    document.getElementById('fecha_alta').value = localDate;
 
     const formulario = document.querySelector('#add_new_paciente');
     formulario.addEventListener('submit', function (event) {
@@ -30,26 +45,52 @@ window.addEventListener('load', function () {
         }
 
         fetch(url, settings)
-            .then(response => response.json())
+            //.then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorMessage => {
+                        throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
+                    });
+                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text();
+                }
+            })
             .then(data => {
+                if (typeof data === 'string') {
+                    console.log('Response text:', data);
+                } else {
+                    console.log('Response json:', data);
 
-                let successAlert = '<div class="alert alert-success alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong></strong> Paciente agregado </div>'
+                    let successAlert = '<div id="success-alert" class="alert alert-success alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'success-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Paciente registrado</strong> </div>'
 
-                document.querySelector('#response').innerHTML = successAlert;
-                document.querySelector('#response').style.display = "block";
-                resetUploadForm();
+                    document.querySelector('#response').innerHTML = successAlert;
+                    document.querySelector('#response').style.display = "block";
+                    resetUploadForm();
 
+                    console.log('Paciente registrado con éxito');
+                }
             })
             .catch(error => {
-                let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong> Error intente nuevamente</strong> </div>'
+                let errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                    '<button type="button" class="close" data-dismiss="alert" ' +
+                    'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                    '<strong> Error al registrar paciente, intente nuevamente</strong> </div>'
 
                 document.querySelector('#response').innerHTML = errorAlert;
                 document.querySelector('#response').style.display = "block";
                 resetUploadForm();
+
+                //alert(`Error post paciente: ${error.message}`);
+                console.log('Error post paciente:', error);
             })
     });
 
@@ -64,12 +105,12 @@ window.addEventListener('load', function () {
         document.querySelector('#fecha_alta').value = "";
     }
 
-    (function(){
+    /*(function(){
         let pathname = window.location.pathname;
         if (pathname === "/") {
             document.querySelector(".nav .nav-item a:first").addClass("active");
         } else if (pathname == "/pacienteList.html") {
             document.querySelector(".nav .nav-item a:last").addClass("active");
         }
-    })();
+    })();*/
 });

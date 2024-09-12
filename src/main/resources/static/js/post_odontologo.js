@@ -2,6 +2,7 @@ document.getElementById("add_new_odontologo").onsubmit=function(e) {
     e.preventDefault();
 };
 
+// POST
 window.addEventListener('load', function () {
 
     const formulario = document.querySelector('#add_new_odontologo');
@@ -23,25 +24,52 @@ window.addEventListener('load', function () {
         }
 
         fetch(url, settings)
-            .then(response => response.json())
+            //.then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorMessage => {
+                        throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
+                    });
+                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text();
+                }
+            })
             .then(data => {
-                let successAlert = '<div class="alert alert-success alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong></strong> Odontologo agregado </div>'
+                if (typeof data === 'string') {
+                    console.log('Response text:', data);
+                } else {
+                    console.log('Response json:', data);
 
-                document.querySelector('#response').innerHTML = successAlert;
-                document.querySelector('#response').style.display = "block";
-                resetUploadForm();
+                    let successAlert = '<div id="success-alert" class="alert alert-success alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'success-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Odontólogo registrado</strong> </div>'
 
+                    document.querySelector('#response').innerHTML = successAlert;
+                    document.querySelector('#response').style.display = "block";
+                    resetUploadForm();
+
+                    console.log('Odontólogo registrado con éxito');
+                }
             })
             .catch(error => {
-                let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong> Error intente nuevamente</strong> </div>'
+                let errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                    '<button type="button" class="close" data-dismiss="alert" ' +
+                    'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                    '<strong> Error al registrar odontólogo, intente nuevamente</strong> </div>'
 
                 document.querySelector('#response').innerHTML = errorAlert;
                 document.querySelector('#response').style.display = "block";
                 resetUploadForm();
+
+                //alert(`Error post odontólogo: ${error.message}`);
+                console.log('Error post odontólogo:', error);
             })
     });
 
@@ -51,12 +79,12 @@ window.addEventListener('load', function () {
         document.querySelector('#matricula').value = "";
     }
 
-    (function(){
+    /*(function(){
         let pathname = window.location.pathname;
         if (pathname === "/") {
             document.querySelector(".nav .nav-item a:first").addClass("active");
         } else if (pathname == "/odontologoList.html") {
             document.querySelector(".nav .nav-item a:last").addClass("active");
         }
-    })();
+    })();*/
 });

@@ -3,6 +3,22 @@ body {
     background-color: #f8f9fa;
 }
 
+html {
+    overflow-y: scroll;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-body {
+    flex: 1;
+}
+
 .navbar {
     margin-bottom: 2rem;
 }
@@ -56,4 +72,13 @@ h3 {
 #response {
     color: #333;
     font-size: 1rem;
+}
+
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+select:invalid {
+    color: gray;
 }

@@ -2,10 +2,7 @@ package com.dh.Backend1_TrabajoIntegrador.entidad;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,28 +13,22 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "turnoSet")
 public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private String apellido;
 
+    @Column(nullable = false, unique = true)
     private String matricula;
 
     @OneToMany(mappedBy = "odontologo")
     @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return "Odontologo{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", matricula='" + matricula + '\'' +
-                '}';
-    }
 }

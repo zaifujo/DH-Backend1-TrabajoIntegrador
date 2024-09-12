@@ -1,3 +1,4 @@
+// PUT, GET (by ID)
 window.addEventListener('load', function () {
 
     const formulario = document.querySelector('#update_turno_form');
@@ -25,6 +26,28 @@ window.addEventListener('load', function () {
 
         fetch(url,settings)
             .then(response => response.json())
+            /*.then(response => {
+                if (!response.ok) {
+                    throw new Error(`Status: ${response.status} ${response.statusText}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (typeof data === 'string') {
+                    console.log('Response text:', data);
+                } else {
+                    console.log('Response json:', data);
+
+                    console.log('Turno actualizado con éxito');
+                }
+            })
+            .catch(error => console.error('Error update turno:', error));*/
     })
 })
 
@@ -36,18 +59,50 @@ function findBy(id) {
     }
 
     fetch(url,settings)
-        .then(response => response.json())
-        .then(data => {
-            let turno = data;
-            document.querySelector('#turno_id').value = turno.id;
-            document.querySelector('#paciente').value = turno.paciente.id;
-            document.querySelector('#odontologo').value = turno.odontologo.id;
-            document.querySelector('#fecha').value = turno.fecha;
+        //.then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(errorMessage => {
+                    throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
+                });
+                //throw new Error(`Status: ${response.status} ${response.statusText}`);
+            }
 
-            document.querySelector('#div_turno_updating').style.display = "block";
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                return response.text();
+            }
+        })
+        .then(data => {
+            if (typeof data === 'string') {
+                console.log('Response text:', data);
+            } else {
+                console.log('Response json:', data);
+
+                let turno = data;
+                document.querySelector('#turno_id').value = turno.id;
+                document.querySelector('#paciente').value = turno.paciente.id;
+                document.querySelector('#odontologo').value = turno.odontologo.id;
+                document.querySelector('#fecha').value = turno.fecha;
+
+                document.querySelector('#div_turno_updating').style.display = "block";
+
+                console.log('Turno consultado con éxito');
+            }
         })
         .catch(error => {
-            alert("Error: " + error);
+            let errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                '<button type="button" class="close" data-dismiss="alert" ' +
+                'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                '<strong> Error al obtener turno, intente nuevamente</strong> </div>'
+
+            document.querySelector('#response').innerHTML = errorAlert;
+            document.querySelector('#response').style.display = "block";
+
+            //alert(`Error fetching turno: ${error.message}`);
+            console.error('Error fetching turno:', error);
         })
 }
 

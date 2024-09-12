@@ -1,10 +1,7 @@
 package com.dh.Backend1_TrabajoIntegrador.entidad;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "domicilios")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,18 +19,9 @@ public class Domicilio {
 
     private Integer numero;
 
+    @Column(nullable = false)
     private String localidad;
 
+    @Column(nullable = false)
     private String provincia;
-
-    @Override
-    public String toString() {
-        return "Domicilio{" +
-                "id=" + id +
-                ", calle='" + calle + '\'' +
-                ", numero=" + numero +
-                ", localidad='" + localidad + '\'' +
-                ", provincia='" + provincia + '\'' +
-                '}';
-    }
 }
