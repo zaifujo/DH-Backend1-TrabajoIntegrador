@@ -1,43 +1,43 @@
+👨🏻‍💻 INTEGRANTES
+- Oriana Valentina Guerrero Torrado
+- Claudio Van Anghelo Flores Uceda
+
 Proyecto de Registro de Turnos - Clínica Odontológica
 Este proyecto es un sistema de gestión de turnos para una clínica odontológica. Permite registrar, listar, modificar y eliminar turnos, así como gestionar la información de pacientes y odontólogos.
 
 Características
-Registro de turnos: Permite seleccionar una fecha y hora para el turno dentro de un rango permitido (08:00 a 18:00 horas).
-Validaciones: El sistema incluye validaciones para evitar que los usuarios agenden turnos fuera de las horas de atención de la clínica.
-Gestión de pacientes: Crear, modificar, listar y eliminar pacientes.
-Gestión de odontólogos: Crear, modificar, listar y eliminar odontólogos.
-Interfaz amigable: Diseño limpio y fácil de usar, adaptado para una clínica odontológica.
-Registro de logs: Utilización de Log4j para gestionar los logs del sistema.
-Pruebas unitarias: Pruebas con JUnit para garantizar la calidad del código.
+- Registro de turnos: Permite seleccionar una fecha y hora para el turno dentro de un rango permitido (08:00 a 18:00 horas).
+- Validaciones: El sistema incluye validaciones para evitar que los usuarios agenden turnos fuera de las horas de atención de la clínica.
+- Gestión de pacientes: Crear, modificar, listar y eliminar pacientes.
+- Gestión de odontólogos: Crear, modificar, listar y eliminar odontólogos.
+- Interfaz amigable: Diseño limpio y fácil de usar, adaptado para una clínica odontológica.
+- Registro de logs: Utilización de Log4j para gestionar los logs del sistema.
+- Pruebas unitarias: Pruebas con JUnit para garantizar la calidad del código.
 
 Tecnologías utilizadas
-Java: Para el Backend
+- Java: Lenguaje de programación principal utilizado para desarrollar la aplicación backend.
 
-JPA:
+- Spring Boot Starter Web: Para desarrollar aplicaciones web y APIs REST.
+- Spring Boot Starter Data JPA: Para la integración con bases de datos usando Hibernate.
+- Spring Boot Starter Test: Incluye JUnit y otras dependencias necesarias para pruebas unitarias e integración.
+- JPA (Java Persistence API): Para la gestión de persistencia y operaciones CRUD con la base de datos.
 
-Spring Boot
+- Hibernate: Mapeo Objeto-Relacional (ORM) para interactuar con la base de datos.
 
-Hibernate: Mapeo Objeto-Relacional (ORM) a través de Spring Data JPA.
+- Maven: Para la gestión de dependencias y automatización del proceso de construcción del proyecto.
 
-Lombok: Para reducir la escritura de código repetitivo como getters, setters, constructores, etc.
+- JavaScript (JS): Utilizado en el frontend para agregar interactividad en la aplicación.
 
-Log4j: Para la gestión y registro de logs en el proyecto. Versión utilizada: 1.2.17.
+- HTML/CSS: Lenguajes de marcado y estilo utilizados para estructurar y estilizar el frontend.
 
-JUnit: Incluido a través de spring-boot-starter-test para pruebas unitarias y de integración.
+- Bootstrap: Framework de CSS utilizado para crear un diseño moderno y responsivo.
 
-H2 Database: Base de datos en memoria para desarrollo y pruebas. Versión: 2.1.214.
+- Lombok: Para simplificar la creación de getters, setters y otros métodos repetitivos en las clases de entidades.
 
-JavaScript: 
+- Log4j: Manejo de logs, versión 1.2.17, para registrar eventos importantes en el sistema.
 
-HTML:
+- JUnit: Utilizado para pruebas unitarias e integración dentro del proyecto.
 
-CSS:
-
-Boostrap:
+- Base de datos H2: Base de datos en memoria utilizada para pruebas y desarrollo.
 
 Nota: La aplicación se ejecuta en el puerto 8080 por defecto. Si deseas cambiar el puerto, puedes modificar el archivo application.properties.
-
-
-👨🏻‍💻 INTEGRANTES
-Oriana Valentina Guerrero Torrado
-Claudio Van Anghelo Flores Uceda
