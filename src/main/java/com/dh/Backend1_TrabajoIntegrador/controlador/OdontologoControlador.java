@@ -2,6 +2,7 @@ package com.dh.Backend1_TrabajoIntegrador.controlador;
 
 import com.dh.Backend1_TrabajoIntegrador.entidad.Odontologo;
 import com.dh.Backend1_TrabajoIntegrador.servicio.IOdontologoServicio;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping("/odontologos")
 public class OdontologoControlador {
     private IOdontologoServicio odontologoServicio;
+    private static final Logger LOGGER = Logger.getLogger(OdontologoControlador.class);
 
     @Autowired
     public OdontologoControlador(IOdontologoServicio odontologoServicio) {
@@ -21,27 +23,25 @@ public class OdontologoControlador {
 
     @GetMapping("/{id}")
     public ResponseEntity<Odontologo> consultarPorId(@PathVariable Long id) {
+        LOGGER.info("--> CONSULTAR ODONTÓLOGO");
+
         return ResponseEntity
                 .ok(odontologoServicio.consultarPorId(id));
     }
 
     @GetMapping
     public ResponseEntity<List<Odontologo>> consultarTodos() {
+        LOGGER.info("--> CONSULTAR TODOS LOS ODONTÓLOGOS");
 
-        List<Odontologo> odontologos = odontologoServicio.consultarTodos();
-
-        if (odontologos.isEmpty()) {
-            return ResponseEntity
-                    .noContent()
-                    .build(); // 204 No Content
-        } else {
-            return ResponseEntity
-                    .ok(odontologos); // 200 OK
-        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(odontologoServicio.consultarTodos());
     }
 
     @PostMapping
     public ResponseEntity<Odontologo> guardar(@RequestBody Odontologo odontologo) {
+        LOGGER.info("--> GUARDAR ODONTÓLOGO");
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(odontologoServicio.guardar(odontologo));
@@ -49,6 +49,8 @@ public class OdontologoControlador {
 
     @PutMapping
     public ResponseEntity<Odontologo> modificar(@RequestBody Odontologo odontologo) {
+        LOGGER.info("--> MODIFICAR ODONTÓLOGO");
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(odontologoServicio.modificar(odontologo));
@@ -56,6 +58,8 @@ public class OdontologoControlador {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
+        LOGGER.info("--> ELIMINAR ODONTÓLOGO");
+
         odontologoServicio.eliminar(id);
         return ResponseEntity
                 .status(HttpStatus.OK)

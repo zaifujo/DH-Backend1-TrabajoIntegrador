@@ -25,7 +25,9 @@ public class PacienteServicioImpl implements IPacienteServicio {
 
     @Override
     public Paciente consultarPorId(Long id) throws ResourceNotFoundException {
-        LOGGER.info("--> CONSULTAR PACIENTE");
+
+        // si id es null: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         Optional<Paciente> pacienteBuscado =  iPacienteRepositorio.findById(id);
         if (pacienteBuscado.isEmpty()) {
@@ -39,7 +41,6 @@ public class PacienteServicioImpl implements IPacienteServicio {
 
     @Override
     public List<Paciente> consultarTodos() {
-        LOGGER.info("--> CONSULTAR TODOS LOS PACIENTES");
 
         List<Paciente> pacientes = iPacienteRepositorio.findAll();
         if (pacientes.isEmpty()) {
@@ -53,19 +54,21 @@ public class PacienteServicioImpl implements IPacienteServicio {
 
     @Override
     public Paciente guardar(Paciente paciente) throws BadRequestException {
-        LOGGER.info("--> GUARDAR PACIENTE");
 
         LOGGER.info("- Verificando que paciente no tenga un ID asignado ...");
         if (paciente.getId() != null) {
-            LOGGER.error("No se pudo guardar paciente: " + paciente.toString());
-            throw new BadRequestException("El paciente tiene un ID asignado: " + paciente.toString());
+            LOGGER.error("No se pudo guardar paciente, contiene ID: " + paciente.toString());
+            throw new BadRequestException("No se pudo guardar paciente, contiene ID: " + paciente.toString());
         }
 
-        /*LOGGER.info("- Verificando que ID del domicilio sea null o que existe ...");
-        if () {
-            LOGGER.error("El ID del domicilio no es null o no existe");
-            throw new BadRequestException("El ID del domicilio no es null o no existe");
-        }*/
+        LOGGER.info("- Verificando que domicilio del paciente no tenga un ID asignado ...");
+        if (paciente.getDomicilio().getId() != null) {
+            LOGGER.error("No se pudo guardar paciente, su domicilio contiene ID: " + paciente.toString());
+            throw new BadRequestException("No se pudo guardar paciente, su domicilio contiene ID: " + paciente.toString());
+        }
+
+        // si dni ya existe: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         LOGGER.info("- Verificando que fecha sea hoy ...");
         if (!paciente.getFechaAlta().isEqual(LocalDate.now())) {
@@ -80,10 +83,12 @@ public class PacienteServicioImpl implements IPacienteServicio {
 
     @Override
     public Paciente modificar(Paciente paciente) throws ResourceNotFoundException, BadRequestException {
-        LOGGER.info("--> MODIFICAR PACIENTE");
 
         LOGGER.info("- Verificando que paciente existe ...");
         Paciente pacienteConsultado = consultarPorId(paciente.getId());
+
+        // si dni ya existe pero en otro registro: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         LOGGER.info("- Verificando que fecha alta no sea modificada ...");
         if (!paciente.getFechaAlta().isEqual(pacienteConsultado.getFechaAlta())) {
@@ -104,10 +109,15 @@ public class PacienteServicioImpl implements IPacienteServicio {
 
     @Override
     public void eliminar(Long id) throws ResourceNotFoundException {
-        LOGGER.info("--> ELIMINAR PACIENTE");
 
         LOGGER.info("- Verificando que paciente existe ...");
         consultarPorId(id);
+
+        // Si paciente tiene turnos registrados, no se podrá eliminar: la excepción
+        // lo capturamos en processDataIntegrityViolationException en GlobalException
+
+        // al eliminar paciente, su domicilio tambien se
+        // elimina, no hace falta implementarlo
 
         iPacienteRepositorio.deleteById(id);
         LOGGER.info("Paciente eliminado con éxito, ID: " + id);

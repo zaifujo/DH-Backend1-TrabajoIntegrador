@@ -41,13 +41,11 @@ function findBy(id) {
     }
 
     fetch(url,settings)
-        //.then(response => response.json())
         .then(response => {
             if (!response.ok) {
                 return response.text().then(errorMessage => {
                     throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                 });
-                //throw new Error(`Status: ${response.status} ${response.statusText}`);
             }
 
             const contentType = response.headers.get('content-type');
@@ -89,7 +87,6 @@ function findBy(id) {
             document.querySelector('#response').innerHTML = errorAlert;
             document.querySelector('#response').style.display = "block";
 
-            //alert(`Error fetching paciente: ${error.message}`);
             console.error('Error fetching paciente:', error);
         })
 }

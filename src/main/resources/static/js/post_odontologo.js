@@ -24,13 +24,11 @@ window.addEventListener('load', function () {
         }
 
         fetch(url, settings)
-            //.then(response => response.json())
             .then(response => {
                 if (!response.ok) {
                     return response.text().then(errorMessage => {
                         throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                     });
-                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
                 }
 
                 const contentType = response.headers.get('content-type');
@@ -59,16 +57,26 @@ window.addEventListener('load', function () {
                 }
             })
             .catch(error => {
-                let errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert" ' +
-                    'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
-                    '<strong> Error al registrar odontólogo, intente nuevamente</strong> </div>'
+
+                let error1 = "Status: 409 , Message: DataIntegrityViolationException";
+
+                let errorAlert = '';
+                if (error.message === error1) {
+                    errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Error al registrar odontólogo (la matrícula ya existe)</strong> </div>'
+                } else {
+                    errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Error al registrar odontólogo, intente nuevamente</strong> </div>'
+                }
 
                 document.querySelector('#response').innerHTML = errorAlert;
                 document.querySelector('#response').style.display = "block";
                 resetUploadForm();
 
-                //alert(`Error post odontólogo: ${error.message}`);
                 console.log('Error post odontólogo:', error);
             })
     });
@@ -79,12 +87,4 @@ window.addEventListener('load', function () {
         document.querySelector('#matricula').value = "";
     }
 
-    /*(function(){
-        let pathname = window.location.pathname;
-        if (pathname === "/") {
-            document.querySelector(".nav .nav-item a:first").addClass("active");
-        } else if (pathname == "/odontologoList.html") {
-            document.querySelector(".nav .nav-item a:last").addClass("active");
-        }
-    })();*/
 });

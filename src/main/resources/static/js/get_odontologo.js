@@ -1,7 +1,6 @@
 // GET (All)
 window.addEventListener('load', function () {
 
-    //(function(){
         const url = 'http://localhost:8080/odontologos';
         const settings = {
             method: 'GET'
@@ -14,7 +13,6 @@ window.addEventListener('load', function () {
                     return response.text().then(errorMessage => {
                         throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                     });
-                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
                 }
 
                 const contentType = response.headers.get('content-type');
@@ -80,16 +78,7 @@ window.addEventListener('load', function () {
                 document.querySelector('#table_response').innerHTML = errorAlert;
                 document.querySelector('#table_response').style.display = "block";
 
-                //alert(`Error fetching odontólogos: ${error.message}`);
                 console.log('Error fetching odontólogos:', error);
             })
-    //})
-
-    /*(function(){
-        let pathname = window.location.pathname;
-        if (pathname == "/odontologoList.html") {
-            document.querySelector(".nav .nav-item a:last").addClass("active");
-        }
-    })*/
 
 });

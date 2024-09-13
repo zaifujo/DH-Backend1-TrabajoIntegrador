@@ -15,7 +15,8 @@ window.addEventListener('load', function () {
             odontologo: {
                 id: document.querySelector('#odontologo').value
             },
-            fecha: document.querySelector('#fecha').value
+            fecha: document.querySelector('#fecha').value,
+            hora: document.querySelector('#hora').value
         };
 
         const url = 'http://localhost:8080/turnos';
@@ -28,13 +29,11 @@ window.addEventListener('load', function () {
         }
 
         fetch(url, settings)
-            //.then(response => response.json())
             .then(response => {
                 if (!response.ok) {
                     return response.text().then(errorMessage => {
                         throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                     });
-                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
                 }
 
                 const contentType = response.headers.get('content-type');
@@ -64,16 +63,33 @@ window.addEventListener('load', function () {
                 }
             })
             .catch(error => {
-                let errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert" ' +
-                    'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
-                    '<strong> Error al registrar turno, intente nuevamente</strong> </div>'
+                let error1 = "Status: 400 , Message: El";
+                let error2 = "Status: 400 , Message: La fecha";
+                let error3 = "Status: 400 , Message: La hora";
+
+                let errorAlert = '';
+                if (error.message.substring(0, error1.length) == error1) {
+                    errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Error al registrar turno (El odontólogo no está disponible en esa fecha y hora)</strong> </div>'
+
+                } else if (error.message.substring(0, error2.length) === error2 || error.message.substring(0, error3.length) === error3) {
+                    errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Error al registrar turno (la fecha y hora deben ser futuras)</strong> </div>'
+                } else {
+                    errorAlert = '<div id="error-alert" class="alert alert-danger alert-dismissible">' +
+                        '<button type="button" class="close" data-dismiss="alert" ' +
+                        'onclick="document.getElementById(\'error-alert\').classList.add(\'d-none\')">&times;</button>' +
+                        '<strong> Error al registrar turno, intente nuevamente</strong> </div>'
+                }
 
                 document.querySelector('#response').innerHTML = errorAlert;
                 document.querySelector('#response').style.display = "block";
                 resetUploadForm();
 
-                //alert(`Error post turno: ${error.message}`);
                 console.log('Error post turno:', error);
             })
     });
@@ -82,18 +98,9 @@ window.addEventListener('load', function () {
         document.querySelector('#paciente').value = "";
         document.querySelector('#odontologo').value = "";
         document.querySelector('#fecha').value = "";
+        document.querySelector('#hora').value = "";
     }
 
-    /*(function(){
-        let pathname = window.location.pathname;
-        if (pathname === "/") {
-            //document.querySelector(".nav .nav-item a:first").addClass("active");
-            document.querySelector(".nav .nav-item a:first-child").classList.add("active");
-        } else if (pathname == "/turnoList.html") {
-            //document.querySelector(".nav .nav-item a:last").addClass("active");
-            document.querySelector(".nav .nav-item a:last-child").classList.add("active");
-        }
-    })();*/
 });
 
 document.addEventListener('DOMContentLoaded', function() {

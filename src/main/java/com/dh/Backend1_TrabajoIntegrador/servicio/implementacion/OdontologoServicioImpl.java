@@ -24,7 +24,9 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo consultarPorId(Long id) throws ResourceNotFoundException {
-        LOGGER.info("--> CONSULTAR ODONTÓLOGO");
+
+        // si id es null: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         Optional<Odontologo> odontologoBuscado =  iOdontologoRepositorio.findById(id);
         if (odontologoBuscado.isEmpty()) {
@@ -38,7 +40,6 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public List<Odontologo> consultarTodos() {
-        LOGGER.info("--> CONSULTAR TODOS LOS ODONTÓLOGOS");
 
         List<Odontologo> odontologos = iOdontologoRepositorio.findAll();
         if (odontologos.isEmpty()) {
@@ -52,13 +53,15 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo guardar(Odontologo odontologo) throws BadRequestException {
-        LOGGER.info("--> GUARDAR ODONTÓLOGO");
 
         LOGGER.info("- Verificando que odontólogo no tenga un ID asignado ...");
         if (odontologo.getId() != null) {
-            LOGGER.error("No se pudo guardar odontólogo: " + odontologo.toString());
-            throw new BadRequestException("El odontólogo tiene un ID asignado: " + odontologo.toString());
+            LOGGER.error("No se pudo guardar odontólogo, contiene ID: " + odontologo.toString());
+            throw new BadRequestException("No se pudo guardar odontólogo, contiene ID: " + odontologo.toString());
         }
+
+        // si matricula ya existe: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         Odontologo odontologoGuardado = iOdontologoRepositorio.save(odontologo);
         LOGGER.info("Odontólogo guardado con éxito: " + odontologoGuardado.toString());
@@ -67,10 +70,12 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo modificar(Odontologo odontologo) throws ResourceNotFoundException {
-        LOGGER.info("--> MODIFICAR ODONTÓLOGO");
 
         LOGGER.info("- Verificando que odontólogo existe ...");
         consultarPorId(odontologo.getId());
+
+        // si matricula ya existe pero en otro registro: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         Odontologo odontologoModificado = iOdontologoRepositorio.save(odontologo);
         LOGGER.info("Odontólogo modificado con éxito: " + odontologoModificado.toString());
@@ -79,10 +84,12 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public void eliminar(Long id) throws ResourceNotFoundException {
-        LOGGER.info("--> ELIMINAR ODONTÓLOGO");
 
         LOGGER.info("- Verificando que odontólogo existe ...");
         consultarPorId(id);
+
+        // Si odontólogo tiene turnos registrados, no se podrá eliminar: la excepción
+        // lo capturamos en processDataIntegrityViolationException en GlobalException
 
         iOdontologoRepositorio.deleteById(id);
         LOGGER.info("Odontólogo eliminado con éxito, ID: " + id);

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +42,20 @@ class TurnoServicioImplTest {
         assert(id != null);
     }
 
+    /*@Test(expected = IllegalArgumentException.class)
+    void testGuardarNegativo() {
+        // arrange
+        Turno turno1 = prepararTurno("11", "1111111");
+        Turno turno2 = prepararTurno("11", "1111111");
+
+        // act
+        Long id1 = turnoServicio.guardar(turno1).getId();
+        Long id2 = turnoServicio.guardar(turno2).getId();
+
+        // assert
+        assert(id2 == null);
+    }*/
+
     @Test
     void testConsultarPorId() {
         // arrange
@@ -51,7 +66,8 @@ class TurnoServicioImplTest {
                 id,
                 odontologoServicio.consultarPorId(turno.getOdontologo().getId()),
                 pacienteServicio.consultarPorId(turno.getPaciente().getId()),
-                LocalDate.of(2031, 1, 1)
+                LocalDate.of(2031, 1, 1),
+                LocalTime.of(20,0,0)
         );
 
         // act
@@ -84,7 +100,8 @@ class TurnoServicioImplTest {
                 id,
                 new Odontologo(1L, null, null, null, null),
                 new Paciente(1L, null, null, null, null, null, null),
-                LocalDate.of(2039, 9, 9)
+                LocalDate.of(2039, 9, 9),
+                LocalTime.of(9, 0, 0)
         );
 
         // act
@@ -124,7 +141,8 @@ class TurnoServicioImplTest {
                 null,
                 new Odontologo(idOdontologo, null, null, null, null),
                 new Paciente(idPaciente, null, null, null, null, null, null),
-                LocalDate.of(2031, 1, 1)
+                LocalDate.of(2031, 1, 1),
+                LocalTime.of(20, 0, 0)
         );
     }
 }

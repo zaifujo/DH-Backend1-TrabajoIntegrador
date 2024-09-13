@@ -5,13 +5,11 @@ function deleteBy(id)  {
         method: 'DELETE'
     }
     fetch(url, settings)
-        //.then(response => response.json())
         .then(response => {
             if (!response.ok) {
                 return response.text().then(errorMessage => {
                     throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                 });
-                //throw new Error(`Status: ${response.status} ${response.statusText}`);
             }
 
             const contentType = response.headers.get('content-type');
@@ -50,10 +48,7 @@ function deleteBy(id)  {
             document.querySelector('#table_response').innerHTML = errorAlert;
             document.querySelector('#table_response').style.display = "block";
 
-            //alert(`Error delete odontólogo: ${error.message}`);
             console.error('Error delete odontólogo:', error);
         })
 
-    //let row_id = "#tr_" + id;
-    //document.querySelector(row_id).remove();
 }

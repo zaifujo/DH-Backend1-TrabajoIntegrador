@@ -1,20 +1,17 @@
 // GET (All)
 window.addEventListener('load', function () {
 
-    //(function(){
         const url = 'http://localhost:8080/pacientes';
         const settings = {
             method: 'GET'
         }
 
         fetch(url, settings)
-            //.then(response => response.json())
             .then(response => {
                 if (!response.ok) {
                     return response.text().then(errorMessage => {
                         throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                     });
-                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
                 }
 
                 const contentType = response.headers.get('content-type');
@@ -91,13 +88,5 @@ window.addEventListener('load', function () {
                 //alert(`Error fetching pacientes: ${error.message}`);
                 console.log('Error fetching pacientes:', error);
             })
-    //})
-
-    /*(function(){
-        let pathname = window.location.pathname;
-        if (pathname == "/pacienteList.html") {
-            document.querySelector(".nav .nav-item a:last").addClass("active");
-        }
-    })*/
 
 });

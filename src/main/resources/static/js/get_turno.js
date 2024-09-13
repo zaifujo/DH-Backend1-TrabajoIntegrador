@@ -1,20 +1,17 @@
 // GET (All)
 window.addEventListener('load', function () {
 
-    //(function(){
         const url = 'http://localhost:8080/turnos';
         const settings = {
             method: 'GET'
         }
 
         fetch(url, settings)
-            //.then(response => response.json())
             .then(response => {
                 if (!response.ok) {
                     return response.text().then(errorMessage => {
                         throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                     });
-                    //throw new Error(`Status: ${response.status} ${response.statusText}`);
                 }
 
                 const contentType = response.headers.get('content-type');
@@ -75,6 +72,7 @@ window.addEventListener('load', function () {
                             '<td class=\"td_paciente\">' + turno_paciente + '</td>' +
                             '<td class=\"td_odontologo\">' + turno_odontologo + '</td>' +
                             '<td class=\"td_fecha\">' + turno.fecha + '</td>' +
+                            '<td class=\"td_hora\">' + turno.hora + '</td>' +
                             '<td>' + deleteButton + '</td>';
                     }
 
@@ -90,16 +88,7 @@ window.addEventListener('load', function () {
                 document.querySelector('#table_response').innerHTML = errorAlert;
                 document.querySelector('#table_response').style.display = "block";
 
-                //alert(`Error fetching turnos: ${error.message}`);
                 console.log('Error fetching turnos:', error);
             })
-    //})
-
-    /*(function(){
-        let pathname = window.location.pathname;
-        if (pathname == "/turnoList.html") {
-            document.querySelector(".nav .nav-item a:last").addClass("active");
-        }
-    })*/
 
 });

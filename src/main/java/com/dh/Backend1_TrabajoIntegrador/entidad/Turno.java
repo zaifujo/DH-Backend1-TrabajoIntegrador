@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "turnos")
@@ -28,5 +29,6 @@ public class Turno {
     @Column(nullable = false)
     private LocalDate fecha;
 
-    // hora
+    @Column(nullable = false)
+    private LocalTime hora;
 }

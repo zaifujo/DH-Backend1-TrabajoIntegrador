@@ -1,5 +1,7 @@
 package com.dh.Backend1_TrabajoIntegrador.servicio.implementacion;
 
+import com.dh.Backend1_TrabajoIntegrador.entidad.Odontologo;
+import com.dh.Backend1_TrabajoIntegrador.entidad.Paciente;
 import com.dh.Backend1_TrabajoIntegrador.entidad.Turno;
 import com.dh.Backend1_TrabajoIntegrador.excepcion.BadRequestException;
 import com.dh.Backend1_TrabajoIntegrador.excepcion.ResourceNotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +34,9 @@ public class TurnoServicioImpl implements ITurnoServicio {
 
     @Override
     public Turno consultarPorId(Long id) throws ResourceNotFoundException {
-        LOGGER.info("--> CONSULTAR TURNO");
+
+        // si id es null: la excepción lo capturamos en
+        // processDataIntegrityViolationException en GlobalException
 
         Optional<Turno> turnoBuscado =  iTurnoRepositorio.findById(id);
         if (turnoBuscado.isEmpty()) {
@@ -45,7 +50,6 @@ public class TurnoServicioImpl implements ITurnoServicio {
 
     @Override
     public List<Turno> consultarTodos() {
-        LOGGER.info("--> CONSULTAR TODOS LOS TURNOS");
 
         List<Turno> turnos = iTurnoRepositorio.findAll();
         if (turnos.isEmpty()) {
@@ -59,19 +63,18 @@ public class TurnoServicioImpl implements ITurnoServicio {
 
     @Override
     public Turno guardar(Turno turno) throws ResourceNotFoundException, BadRequestException {
-        LOGGER.info("--> GUARDAR TURNO");
 
         LOGGER.info("- Verificando que turno no tenga un ID asignado ...");
         if (turno.getId() != null) {
-            LOGGER.error("No se pudo guardar turno: " + turno.toString());
-            throw new BadRequestException("El turno tiene un ID asignado: " + turno.toString());
+            LOGGER.error("No se pudo guardar turno, contiene ID: " + turno.toString());
+            throw new BadRequestException("No se pudo guardar turno, contiene ID: " + turno.toString());
         }
 
         LOGGER.info("- Verificando que odontólogo existe ...");
-        iOdontologoServicio.consultarPorId(turno.getOdontologo().getId());
+        Odontologo odontologo = iOdontologoServicio.consultarPorId(turno.getOdontologo().getId());
 
         LOGGER.info("- Verificando que paciente existe ...");
-        iPacienteServicio.consultarPorId(turno.getPaciente().getId());
+        Paciente paciente = iPacienteServicio.consultarPorId(turno.getPaciente().getId());
 
         LOGGER.info("- Verificando que fecha sea a partir de hoy ...");
         if (turno.getFecha().isBefore(LocalDate.now())) {
@@ -79,14 +82,38 @@ public class TurnoServicioImpl implements ITurnoServicio {
             throw new BadRequestException("La fecha debe ser a partir de hoy");
         }
 
+        LOGGER.info("- Verificando que la hora sea futura ...");
+        if (turno.getFecha().isEqual(LocalDate.now()) && !turno.getHora().isAfter(LocalTime.now())) {
+            LOGGER.error("La hora debe ser futura");
+            throw new BadRequestException("La hora debe ser futura");
+        }
+
+        LOGGER.info("- Verificando si el odontólogo en la fecha y hora está disponible ...");
+        if (!verificarFechaHoraDispnible(odontologo.getId(), turno.getFecha(), turno.getHora())) {
+            LOGGER.error("El odontólogo no está disponible en esa fecha y hora: " + turno.toString());
+            throw new BadRequestException("El odontólogo no está disponible en esa fecha y hora: " + turno.toString());
+        }
+
         Turno turnoGuardado = iTurnoRepositorio.save(turno);
+        turnoGuardado.setOdontologo(odontologo);
+        turnoGuardado.setPaciente(paciente);
         LOGGER.info("Turno guardado con éxito: " + turnoGuardado.toString());
         return turnoGuardado;
     }
 
+    private Boolean verificarFechaHoraDispnible(Long idOdontologo, LocalDate fecha, LocalTime hora) {
+        Boolean respuesta = true;
+        List<Turno> listaTurnos = iTurnoRepositorio.findAll();
+        for (Turno turno : listaTurnos) {
+            if (turno.getOdontologo().getId() == idOdontologo && turno.getFecha().equals(fecha) && turno.getHora().equals(hora)) {
+                respuesta = false;
+            }
+        }
+        return respuesta;
+    }
+
     @Override
     public Turno modificar(Turno turno) throws ResourceNotFoundException, BadRequestException {
-        LOGGER.info("--> MODIFICAR TURNO");
 
         LOGGER.info("- Verificando que turno existe ...");
         consultarPorId(turno.getId());
@@ -103,6 +130,12 @@ public class TurnoServicioImpl implements ITurnoServicio {
             throw new BadRequestException("La fecha debe ser a partir de hoy");
         }
 
+        LOGGER.info("- Verificando que la hora sea futura ...");
+        if (turno.getFecha().isEqual(LocalDate.now()) && !turno.getHora().isAfter(LocalTime.now())) {
+            LOGGER.error("La hora debe ser futura");
+            throw new BadRequestException("La hora debe ser futura");
+        }
+
         Turno turnoModificado = iTurnoRepositorio.save(turno);
         LOGGER.info("Turno modificado con éxito: " + turnoModificado.toString());
         return turnoModificado;
@@ -110,7 +143,6 @@ public class TurnoServicioImpl implements ITurnoServicio {
 
     @Override
     public void eliminar(Long id) throws ResourceNotFoundException {
-        LOGGER.info("--> ELIMINAR TURNO");
 
         LOGGER.info("- Verificando que turno existe ...");
         consultarPorId(id);

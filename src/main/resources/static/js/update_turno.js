@@ -13,6 +13,7 @@ window.addEventListener('load', function () {
                 id: document.querySelector('#odontologo').value
             },
             fecha: document.querySelector('#fecha').value,
+            hora: document.querySelector('#hora').value,
         }
 
         const url = 'http://localhost:8080/turnos';
@@ -65,7 +66,6 @@ function findBy(id) {
                 return response.text().then(errorMessage => {
                     throw new Error(`Status: ${response.status} ${response.statusText}, Message: ${errorMessage}`);
                 });
-                //throw new Error(`Status: ${response.status} ${response.statusText}`);
             }
 
             const contentType = response.headers.get('content-type');
@@ -86,6 +86,7 @@ function findBy(id) {
                 document.querySelector('#paciente').value = turno.paciente.id;
                 document.querySelector('#odontologo').value = turno.odontologo.id;
                 document.querySelector('#fecha').value = turno.fecha;
+                document.querySelector('#hora').value = turno.hora;
 
                 document.querySelector('#div_turno_updating').style.display = "block";
 
@@ -101,7 +102,6 @@ function findBy(id) {
             document.querySelector('#response').innerHTML = errorAlert;
             document.querySelector('#response').style.display = "block";
 
-            //alert(`Error fetching turno: ${error.message}`);
             console.error('Error fetching turno:', error);
         })
 }

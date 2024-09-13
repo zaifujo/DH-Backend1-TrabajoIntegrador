@@ -5,7 +5,6 @@ function deleteBy(id) {
         method: 'DELETE'
     }
     fetch(url, settings)
-        //.then(response => response.json())
         .then(response => {
             if (!response.ok) {
                 return response.text().then(errorMessage => {
@@ -54,6 +53,4 @@ function deleteBy(id) {
             console.error('Error delete turno:', error);
         })
 
-    //let row_id = "#tr_" + id;
-    //document.querySelector(row_id).remove();
 }
