@@ -1,43 +1,63 @@
-👨🏻‍💻 INTEGRANTES
+# 🦷 Proyecto de Registro de Turnos - Clínica Odontológica
+
+Este proyecto es un sistema de gestión de turnos para una clínica odontológica. Facilita el registro, listado, modificación y eliminación de turnos, así como la administración de la información de pacientes y odontólogos.
+
+## 👨🏻‍💻 **Integrantes**
 - Oriana Valentina Guerrero Torrado
 - Claudio Van Anghelo Flores Uceda
 
-Proyecto de Registro de Turnos - Clínica Odontológica
-Este proyecto es un sistema de gestión de turnos para una clínica odontológica. Permite registrar, listar, modificar y eliminar turnos, así como gestionar la información de pacientes y odontólogos.
+---
 
-Características
-- Registro de turnos: Permite seleccionar una fecha y hora para el turno dentro de un rango permitido (08:00 a 18:00 horas).
-- Validaciones: El sistema incluye validaciones para evitar que los usuarios agenden turnos fuera de las horas de atención de la clínica.
-- Gestión de pacientes: Crear, modificar, listar y eliminar pacientes.
-- Gestión de odontólogos: Crear, modificar, listar y eliminar odontólogos.
-- Interfaz amigable: Diseño limpio y fácil de usar, adaptado para una clínica odontológica.
-- Registro de logs: Utilización de Log4j para gestionar los logs del sistema.
-- Pruebas unitarias: Pruebas con JUnit para garantizar la calidad del código.
+## ✨ **Características Principales**
+- **Registro de Turnos**: Permite seleccionar una fecha y hora para el turno dentro del horario de atención (08:00 a 18:00 horas).
+- **Validaciones**: Asegura que los turnos no sean agendados fuera del horario permitido.
+- **Gestión de Pacientes**: Funcionalidad para crear, modificar, listar y eliminar pacientes.
+- **Gestión de Odontólogos**: Funcionalidad para crear, modificar, listar y eliminar odontólogos.
+- **Interfaz Amigable**: Diseño limpio y fácil de usar, adaptado a una clínica odontológica.
+- **Registro de Logs**: Utilización de **Log4j** para gestionar los eventos importantes del sistema.
+- **Pruebas Unitarias**: Pruebas implementadas con **JUnit** para garantizar la calidad y confiabilidad del código.
 
-Tecnologías utilizadas
-- Java: Lenguaje de programación principal utilizado para desarrollar la aplicación backend.
+---
 
-- Spring Boot Starter Web: Para desarrollar aplicaciones web y APIs REST.
-- Spring Boot Starter Data JPA: Para la integración con bases de datos usando Hibernate.
-- Spring Boot Starter Test: Incluye JUnit y otras dependencias necesarias para pruebas unitarias e integración.
-- JPA (Java Persistence API): Para la gestión de persistencia y operaciones CRUD con la base de datos.
+## 🚀 **Tecnologías Utilizadas**
+### Backend
+- **Java**: Lenguaje de programación principal para el desarrollo del backend.
+- **Spring Boot**:
+  - `spring-boot-starter-web`: Para el desarrollo de aplicaciones web y APIs REST.
+  - `spring-boot-starter-data-jpa`: Para la integración con bases de datos mediante **Hibernate**.
+  - `spring-boot-starter-test`: Para pruebas unitarias e integración.
+- **JPA**: Para la gestión de persistencia y operaciones CRUD.
+- **Hibernate**: ORM para interactuar con la base de datos.
+- **Maven**: Para la gestión de dependencias y automatización del proyecto.
+- **Lombok**: Para simplificar la creación de getters, setters y métodos repetitivos.
+- **Log4j (v1.2.17)**: Para la gestión y registro de logs del sistema.
 
-- Hibernate: Mapeo Objeto-Relacional (ORM) para interactuar con la base de datos.
+### Frontend
+- **JavaScript**: Para agregar interactividad en la aplicación.
+- **HTML/CSS**: Para estructurar y estilizar el frontend.
+- **Bootstrap**: Framework CSS para crear una interfaz moderna y responsiva.
 
-- Maven: Para la gestión de dependencias y automatización del proceso de construcción del proyecto.
+### Base de Datos
+- **H2**: Base de datos en memoria, utilizada para pruebas y desarrollo rápido.
 
-- JavaScript (JS): Utilizado en el frontend para agregar interactividad en la aplicación.
+---
 
-- HTML/CSS: Lenguajes de marcado y estilo utilizados para estructurar y estilizar el frontend.
+## 🛠️ **Configuración del Proyecto**
+- **Puerto**: La aplicación se ejecuta por defecto en el puerto **8080**. Si deseas cambiarlo, puedes modificar el archivo `application.properties`.
 
-- Bootstrap: Framework de CSS utilizado para crear un diseño moderno y responsivo.
+---
 
-- Lombok: Para simplificar la creación de getters, setters y otros métodos repetitivos en las clases de entidades.
+## 🧪 **Pruebas y Calidad**
+- **JUnit**: Herramienta utilizada para realizar pruebas unitarias, asegurando la calidad del código en los distintos módulos de la aplicación.
 
-- Log4j: Manejo de logs, versión 1.2.17, para registrar eventos importantes en el sistema.
+---
 
-- JUnit: Utilizado para pruebas unitarias e integración dentro del proyecto.
+## 📋 **Cómo ejecutar la aplicación**
+1. Clona este repositorio.
+2. Importa el proyecto como un **proyecto Maven** en tu IDE.
+3. Ejecuta el comando `mvn spring-boot:run` o ejecuta la clase principal.
+4. Accede a la aplicación en `http://localhost:8080`.
 
-- Base de datos H2: Base de datos en memoria utilizada para pruebas y desarrollo.
+---
 
-Nota: La aplicación se ejecuta en el puerto 8080 por defecto. Si deseas cambiar el puerto, puedes modificar el archivo application.properties.
+¡Gracias por revisar este proyecto!
